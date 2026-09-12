@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff0f5">
+  <title>A question for you ♡</title>
+  <style>
+    :root{--ink:#4b2941;--pink:#fa4f91;--pink2:#ff7eae;--purple:#9677ff;--muted:#9d6883}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{margin:0;min-height:100svh;overflow:hidden;color:var(--ink);font-family:ui-rounded,"SF Pro Rounded",system-ui,sans-serif;background:radial-gradient(circle at 5% 8%,#fff 0,transparent 28%),radial-gradient(circle at 96% 88%,#e4d8ff 0,transparent 34%),linear-gradient(150deg,#ffeff5,#fff6df)}
+    main{width:min(100%,430px);min-height:100svh;margin:auto;padding:calc(16px + env(safe-area-inset-top)) 20px calc(12px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
+    .brand{display:flex;justify-content:space-between;color:#a86b88;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+    .view{display:none;flex:1;flex-direction:column;align-items:center;text-align:center}.view.active{display:flex;animation:in .35s ease both}@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    #ask{padding-top:30px}.bear{font-size:68px;line-height:1;filter:drop-shadow(0 12px 9px #d3789955);animation:float 1.8s ease-in-out infinite alternate}@keyframes float{to{transform:translateY(-7px) rotate(4deg)}}
+    h1{font-size:clamp(39px,11vw,52px);line-height:.95;letter-spacing:-.075em;margin:18px 0 10px}p{max-width:335px;margin:0;color:#825a71;font-size:16px;line-height:1.38}.choice{position:relative;width:100%;height:88px;margin-top:20px}.heart{position:absolute;font-size:28px;opacity:.65}.heart.one{left:5px;top:-12px;transform:rotate(-18deg)}.heart.two{right:4px;bottom:-4px;transform:rotate(18deg);color:#a990ff}
+    button{border:0;cursor:pointer;font:900 15px ui-rounded,system-ui;min-height:56px;border-radius:17px}.yes{position:absolute;left:0;bottom:0;width:70%;color:#fff;background:linear-gradient(110deg,var(--pink2),var(--pink));box-shadow:0 13px 20px #ee438045}.no{position:absolute;right:0;bottom:0;width:25%;color:#76546a;background:#fff;box-shadow:0 10px 19px #bc789535;transition:left .22s cubic-bezier(.2,.8,.2,1),top .22s cubic-bezier(.2,.8,.2,1)}.yes:active{transform:scale(.97)}
+    .no.running{position:fixed;z-index:10;width:86px;animation:body-run .15s ease-in-out infinite alternate}.no.running .leg{display:block;position:absolute;top:45px;width:9px;height:38px;background:#76546a;border-radius:9px;transform-origin:top;z-index:-1}.no.running .leg:after{content:"";position:absolute;width:19px;height:8px;bottom:-3px;background:#76546a;border-radius:10px;transform:translateX(-5px)}.no.running .left{left:21px;animation:left-leg .12s ease-in-out infinite alternate}.no.running .right{right:21px;animation:right-leg .12s ease-in-out infinite alternate}@keyframes body-run{to{transform:translateY(-10px) rotate(7deg) scaleX(1.06)}}@keyframes left-leg{to{transform:rotate(69deg) translateY(4px)}}@keyframes right-leg{to{transform:rotate(-69deg) translateY(4px)}}
+    .note{margin-top:9px;color:#a86b88;font-size:12px}.game{justify-content:center}.game h1{font-size:36px}.field{width:100%;height:min(48svh,350px);position:relative;margin-top:18px;border-radius:28px;background:#ffffff8f;border:1px solid #fff;overflow:hidden;box-shadow:0 13px 28px #cb779b24}.score{position:absolute;top:16px;left:18px;color:#9d6680;font-size:13px;font-weight:900;letter-spacing:.04em}.catch{position:absolute;border:0;background:transparent;min-height:auto;padding:5px;font-size:48px;filter:drop-shadow(0 8px 7px #f9569559)}.final{justify-content:center}.message{width:100%;padding:27px 23px;color:#fff;text-align:left;border-radius:30px;background:linear-gradient(135deg,#ff78ac,#9479ff);box-shadow:0 18px 36px #d04a7e45}.message .emoji{font-size:64px}.message h2{font-size:35px;line-height:.96;letter-spacing:-.065em;margin:8px 0 10px}.message p{color:#fff7fb}.again{width:100%;margin-top:16px;color:#d5417b;background:#fff;box-shadow:0 12px 20px #c6427828}.confetti{position:fixed;top:-24px;width:10px;height:16px;pointer-events:none;z-index:20;animation:fall 2.5s linear forwards}@keyframes fall{to{transform:translate(var(--drift),110svh) rotate(720deg);opacity:0}}footer{text-align:center;font-size:10px;color:#ac7590;margin-top:8px}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand"><span>Love check</span><span>from Sharvin, your hubby ♡</span></div>
+    <section class="view active" id="ask">
+      <div class="bear">🧸</div>
+      <h1>Do you love me? 💖</h1>
+      <p>And… will you go on a birthday trip with your hubby Sharvin? ✈️</p>
+      <div class="choice" id="choice">
+        <span class="heart one">♥</span><span class="heart two">♥</span>
+        <button class="yes" id="yes">YES, obviously! 💖</button>
+        <button class="no" id="no">No<span class="leg left"></span><span class="leg right"></span></button>
+      </div>
+      <div class="note" id="note">Choose wisely, pretty please.</div>
+    </section>
+    <section class="view game" id="game">
+      <div class="bear">💕</div><h1>Catch five love hearts!</h1><p>Tap each heart before it gets shy.</p>
+      <div class="field" id="field"><div class="score" id="score">HEARTS: 0 / 5</div><button class="catch" id="catch" aria-label="Catch a heart">💗</button></div>
+    </section>
+    <section class="view final" id="final">
+      <div class="message"><div class="emoji">🤝✈️</div><h2>It’s a promise you can’t break.</h2><p>We are going on our birthday trip — and we’re booking it in November!</p><p style="margin-top:14px;font-weight:900;color:white">Love, Sharvin — your hubby ♡</p></div>
+      <button class="again" id="again">Play again ♡</button>
+    </section>
+    <footer>Made with unnecessary romance.</footer>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id), views=['ask','game','final']; let tries=0,score=0;
+    function show(id){views.forEach(v=>$(v).classList.toggle('active',v===id))}
+    function moveNo(){
+      tries++; const b=$('no'); b.classList.add('running');
+      const x=8+Math.random()*Math.max(1,window.innerWidth-b.offsetWidth-16);
+      const y=8+Math.random()*Math.max(1,window.innerHeight-b.offsetHeight-58);
+      b.style.left=x+'px'; b.style.top=y+'px'; b.style.right='auto'; b.style.bottom='auto';
+      $('note').textContent=['Oh no — it grew legs!','It is sprinting away!','Those tiny legs are FAST.','The No button has escaped. 💨'][Math.min(tries-1,3)];
+      if(tries>=4){b.style.display='none';$('note').textContent='The universe has made its decision. 💘'}
+    }
+    function startGame(){score=0;$('score').textContent='HEARTS: 0 / 5';show('game');setTimeout(placeHeart,50)}
+    function placeHeart(){const f=$('field'),h=$('catch');h.style.left=(10+Math.random()*(f.clientWidth-h.offsetWidth-20))+'px';h.style.top=(49+Math.random()*(f.clientHeight-h.offsetHeight-59))+'px';h.textContent=['💗','💖','💘','💝'][Math.floor(Math.random()*4)]}
+    function celebrate(){for(let i=0;i<48;i++){const e=document.createElement('i');e.className='confetti';e.style.left=Math.random()*100+'vw';e.style.background=['#ff5e9b','#9d7cff','#ffdc62','#fff'][i%4];e.style.setProperty('--drift',(Math.random()*180-90)+'px');e.style.animationDelay=Math.random()*.45+'s';document.body.append(e);setTimeout(()=>e.remove(),3000)}}
+    function reset(){tries=0;const b=$('no');b.classList.remove('running');b.style.cssText='';b.style.display='block';$('note').textContent='Choose wisely, pretty please.';show('ask')}
+    $('no').onclick=moveNo;$('yes').onclick=startGame;$('catch').onclick=()=>{score++;$('score').textContent=`HEARTS: ${score} / 5`;if(score===5){show('final');celebrate()}else placeHeart()};$('again').onclick=reset;
+  </script>
+</body></html>
